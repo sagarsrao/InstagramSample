@@ -58,6 +58,7 @@ class LoginViewModelTest {
             networkHelper,
             userRepository
         )
+
         loginViewModel.loggingIn.observeForever(loggingInObserver)
         loginViewModel.launchDummy.observeForever(launchDummyObserver)
         loginViewModel.messageStringId.observeForever(messageStringIdObserver)
@@ -77,7 +78,7 @@ class LoginViewModelTest {
             .`when`(userRepository)
             .doUserLogin(email, password)
         loginViewModel.onLogin()
-        testScheduler.triggerActions()
+        testScheduler.triggerActions()//This will help in triggering  the actions
         verify(userRepository).saveCurrentUser(user)
         assert(loginViewModel.loggingIn.value == false)
         assert(loginViewModel.launchDummy.value == Event(hashMapOf<String, String>()))
@@ -100,6 +101,8 @@ class LoginViewModelTest {
         verify(messageStringIdObserver).onChanged(Resource.error(R.string.network_connection_error))
     }
 
+
+    /*Here we are releasing the obeservers*/
     @After
     fun tearDown() {
         loginViewModel.loggingIn.removeObserver(loggingInObserver)

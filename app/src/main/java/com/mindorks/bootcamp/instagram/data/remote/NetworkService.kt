@@ -2,8 +2,9 @@ package com.mindorks.bootcamp.instagram.data.remote
 
 import com.mindorks.bootcamp.instagram.data.remote.request.DummyRequest
 import com.mindorks.bootcamp.instagram.data.remote.request.LoginRequest
+import com.mindorks.bootcamp.instagram.data.remote.request.SignUpRequest
 import com.mindorks.bootcamp.instagram.data.remote.response.DummyResponse
-import com.mindorks.bootcamp.instagram.data.remote.response.LoginResponse
+import com.mindorks.bootcamp.instagram.data.remote.response.SignUpAndLoginResponse
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -36,5 +37,8 @@ interface NetworkService {
     fun doLoginCall(
         @Body request: LoginRequest,
         @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY
-    ): Single<LoginResponse>
+    ): Single<SignUpAndLoginResponse>
+
+    @POST(Endpoints.SIGNUP)
+    fun doSignUp(@Header(Networking.HEADER_API_KEY) apiKey:String = Networking.API_KEY,@Body request:SignUpRequest):Single<SignUpAndLoginResponse>
 }

@@ -3,7 +3,7 @@ package com.mindorks.bootcamp.instagram.data.remote.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class SignUpAndLoginResponse(
     @Expose
     @SerializedName("statusCode")
     var statusCode: String,

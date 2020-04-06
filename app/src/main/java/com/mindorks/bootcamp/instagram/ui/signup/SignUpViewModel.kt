@@ -18,14 +18,14 @@ class SignUpViewModel(
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
     private val validationsList: MutableLiveData<List<Validation>> = MutableLiveData()
-
-    val launchDummy: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
-
-
+    val userNameField: MutableLiveData<String> = MutableLiveData()
     val emailField: MutableLiveData<String> = MutableLiveData()
     val passwordField: MutableLiveData<String> = MutableLiveData()
-    val loggingIn: MutableLiveData<Boolean> = MutableLiveData()
+    val signingUp: MutableLiveData<Boolean> = MutableLiveData()
 
+    val launchLoginScreen: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
+
+    val userNameValidation: LiveData<Resource<Int>> = filterValidation(Validation.Field.USERNAME)
     val emailValidation: LiveData<Resource<Int>> = filterValidation(Validation.Field.EMAIL)
     val passwordValidation: LiveData<Resource<Int>> = filterValidation(Validation.Field.PASSWORD)
 
@@ -36,39 +36,47 @@ class SignUpViewModel(
                 ?: Resource.unknown()
         }
 
-    override fun onCreate() {}
+    override fun onCreate() {
+    }
 
     fun onEmailChange(email: String) = emailField.postValue(email)
+    fun onPasswordChange(password: String) = passwordField.postValue(password)
+    fun onUserNameChange(userName: String) = userNameField.postValue(userName)
 
-    fun onPasswordChange(email: String) = passwordField.postValue(email)
-
-    fun onLogin() {
+    fun onSignUp() {
         val email = emailField.value
         val password = passwordField.value
+        val userName = userNameField.value
 
-        val validations = Validator.validateLoginFields(email, password)
-        validationsList.postValue(validations)
+        val validation = Validator.validateSignUpFields(userName, email, password)
 
-        if (validations.isNotEmpty() && email != null && password != null) {
-            val successValidation = validations.filter { it.resource.status == Status.SUCCESS }
-            if (successValidation.size == validations.size && checkInternetConnectionWithMessage()) {
-                loggingIn.postValue(true)
+        validationsList.postValue(validation)
+        if (validation.isNotEmpty() && email != null && password != null && userName != null) {
+            val successValidation = validation.filter { it.resource.status == Status.SUCCESS }
+            if (successValidation.size == validation.size && checkInternetConnectionWithMessage()) {
+                signingUp.postValue(true)
                 compositeDisposable.addAll(
-                    userRepository.doUserLogin(email, password)
+                    userRepository.doUserSignUp(userName, email, password)
                         .subscribeOn(schedulerProvider.io())
-                        .subscribe(
-                            {
-                                userRepository.saveCurrentUser(it)
-                                loggingIn.postValue(false)
-                                launchDummy.postValue(Event(emptyMap()))
-                            },
-                            {
-                                handleNetworkError(it)
-                                loggingIn.postValue(false)
-                            }
-                        )
+                        .subscribe({
+                            userRepository.saveCurrentUser(it)
+                            signingUp.postValue(false)
+                            launchLoginScreen.postValue(Event(emptyMap()))
+
+
+                        }, {
+                            handleNetworkError(it)
+                            signingUp.postValue(false)
+
+                        })
                 )
+
+
             }
         }
+
+
     }
+
+
 }
