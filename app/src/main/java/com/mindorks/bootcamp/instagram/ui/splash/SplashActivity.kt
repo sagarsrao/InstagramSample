@@ -35,10 +35,10 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
             }
         })
 
-        /*viewModel.launchDummy.observe(this, Observer<Event<Map<String, String>>> {
+        viewModel.launchDummy.observe(this, Observer<Event<Map<String, String>>> {
             it.getIfNotHandled()?.run {
-                startActivity(Intent(applicationContext, DummyActivity::class.java))
+                startActivity(Intent(applicationContext, LoginActivity::class.java))
             }
-        })*/
+        })
     }
 }
