@@ -13,7 +13,7 @@
     <string name="email_field_hint">Enter your email</string>
     <string name="password_field_hint">Enter your password</string>
     <string name="email_field_empty">Email can\'t be empty</string>
-    <string name = "user_full_name_field_hint">Enter your full name</string>
+    <string name="user_full_name_field_hint">Enter your full name</string>
     <string name="password_field_empty">Password can\'t be empty</string>
     <string name="email_field_invalid">Not a valid email</string>
     <string name="password_field_small_length">Password less than 6 digits</string>
@@ -21,4 +21,14 @@
     <string name="sign_button_text">SIGN UP</string>
     <string name="user_name_field_hint">Enter your full name</string>
     <string name="user_name_field_hint_empty">User name cannot  be empty</string>
+
+
+    <string name="menu_home">home</string>
+    <string name="menu_profile">profile</string>
+    <string name="menu_photo">photo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="post_like_label">%1d Likes</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

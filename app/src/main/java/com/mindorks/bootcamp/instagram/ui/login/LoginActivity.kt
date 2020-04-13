@@ -11,6 +11,7 @@ import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.dummy.DummyActivity
+import com.mindorks.bootcamp.instagram.ui.main.MainActivity
 import com.mindorks.bootcamp.instagram.ui.signup.SignUpActivity
 import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.common.Status
@@ -100,7 +101,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
         // view model also provided the Bundle in the event that is needed for the Activity
         viewModel.launchDummy.observe(this, Observer<Event<Map<String, String>>> {
             it.getIfNotHandled()?.run {
-                startActivity(Intent(applicationContext, DummyActivity::class.java))
+                startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
         })

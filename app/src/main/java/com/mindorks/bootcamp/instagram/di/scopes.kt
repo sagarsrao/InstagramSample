@@ -14,3 +14,4 @@ annotation class FragmentScope
 @Scope
 @Retention(AnnotationRetention.SOURCE)
 annotation class ViewModelScope
+
