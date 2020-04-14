@@ -29,6 +29,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="post_like_label">%1d Likes</string>
+    <string name="no_of_posts">%1d Posts</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout_button_text">Logout</string>
+    <string name="edit_profile_text">Edit Profile</string>
+    <string name="edit_user_name">Erwin Smith</string>
+    <string name="edit_user_desc">I am a passionate Android developer and I aim to reach high and touch the sky</string>
+    <string name="change_photo">Change Photo</string>
+    <string name="name">Name</string>
+    <string name="Bio">Bio</string>
+    <string name="private_information">Private Information</string>
+    <string name="email_address_text">Email Address</string>
+    <string name="progress_message">Saving Profile Please Wait...</string>
 
 </resources>

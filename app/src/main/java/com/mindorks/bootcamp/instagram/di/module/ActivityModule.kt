@@ -6,6 +6,7 @@ import com.mindorks.bootcamp.instagram.data.repository.DummyRepository
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.dummy.DummyViewModel
+import com.mindorks.bootcamp.instagram.ui.editProfile.EditProfileActivityViewModel
 import com.mindorks.bootcamp.instagram.ui.login.LoginViewModel
 import com.mindorks.bootcamp.instagram.ui.main.MainViewModel
 import com.mindorks.bootcamp.instagram.ui.signup.SignUpViewModel
@@ -58,9 +59,9 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         networkHelper: NetworkHelper,
         userRepository: UserRepository
     ): LoginViewModel = ViewModelProviders.of(
-            activity, ViewModelProviderFactory(LoginViewModel::class) {
-                LoginViewModel(schedulerProvider, compositeDisposable, networkHelper, userRepository)
-            }).get(LoginViewModel::class.java)
+        activity, ViewModelProviderFactory(LoginViewModel::class) {
+            LoginViewModel(schedulerProvider, compositeDisposable, networkHelper, userRepository)
+        }).get(LoginViewModel::class.java)
 
 
     @Provides
@@ -80,10 +81,21 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
         networkHelper: NetworkHelper
-        ): MainViewModel = ViewModelProviders.of(
+    ): MainViewModel = ViewModelProviders.of(
         activity, ViewModelProviderFactory(MainViewModel::class) {
             MainViewModel(schedulerProvider, compositeDisposable, networkHelper)
         }).get(MainViewModel::class.java)
+
+
+    @Provides
+    fun provideEditProfileActivityViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper
+    ): EditProfileActivityViewModel = ViewModelProviders.of(
+        activity, ViewModelProviderFactory(EditProfileActivityViewModel::class) {
+            EditProfileActivityViewModel(schedulerProvider, compositeDisposable, networkHelper)
+        }).get(EditProfileActivityViewModel::class.java)
 
 
 }

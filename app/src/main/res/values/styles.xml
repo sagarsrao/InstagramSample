@@ -127,6 +127,19 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
+
+
     </style>
 
+    <style name="AppTheme.MyTextHintStyle" parent="@android:style/TextAppearance">
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">#808080</item>
+        <item name="colorControlHighlight">#808080</item>
+        <item name="android:textColor">#b4b4b4</item>
+    </style>
+
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>

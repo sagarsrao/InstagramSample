@@ -11,6 +11,8 @@ class ProfileViewModel(schedulerProvider: SchedulerProvider,
                        networkHelper: NetworkHelper,
                        private val userRepository: UserRepository
 ): BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
+
+
     override fun onCreate() {
 
     }

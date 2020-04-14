@@ -1,6 +1,8 @@
 package com.mindorks.bootcamp.instagram.data.remote
 
 import com.mindorks.bootcamp.instagram.data.model.allPost.PostListResponse
+import com.mindorks.bootcamp.instagram.data.model.editProfile.EditProfileRequest
+import com.mindorks.bootcamp.instagram.data.model.editProfile.ResponseEditMyProfile
 import com.mindorks.bootcamp.instagram.data.model.like.PostLikeResponse
 import com.mindorks.bootcamp.instagram.data.model.unlike.PostUnlikeResponse
 import com.mindorks.bootcamp.instagram.data.remote.request.DummyRequest
@@ -70,5 +72,15 @@ interface NetworkService {
         @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
         @Header(Networking.HEADER_USER_ID) userId: String
     ): Single<PostUnlikeResponse>
+
+
+    @PUT(Endpoints.EDIT_MY_PROFILE)
+    fun saveEditMyProfileInfo(
+        @Body body: EditProfileRequest,
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
+        @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
+        @Header(Networking.HEADER_USER_ID) userId: String
+    ): Single<ResponseEditMyProfile>
+
 
 }

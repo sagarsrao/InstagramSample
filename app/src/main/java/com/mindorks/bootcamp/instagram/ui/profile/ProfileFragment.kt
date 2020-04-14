@@ -1,5 +1,6 @@
 package com.mindorks.bootcamp.instagram.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
+import com.mindorks.bootcamp.instagram.ui.editProfile.EditProfileActivity
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,5 +69,14 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     override fun setupView(view: View) {
 
+        tvEditProfile.setOnClickListener {
+            startActivity(Intent(activity,EditProfileActivity::class.java))
+
+        }
+    }
+
+
+    override fun setupObservers() {
+        super.setupObservers()
     }
 }
