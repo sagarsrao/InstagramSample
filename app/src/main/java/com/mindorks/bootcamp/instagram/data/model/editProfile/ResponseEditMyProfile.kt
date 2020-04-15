@@ -10,7 +10,7 @@ data class ResponseEditMyProfile(
 
     @Expose
     @SerializedName("status")
-    val status: String,
+    val status: Int,
 
     @Expose
     @SerializedName("message")

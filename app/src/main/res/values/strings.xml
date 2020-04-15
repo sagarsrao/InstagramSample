@@ -41,5 +41,6 @@
     <string name="private_information">Private Information</string>
     <string name="email_address_text">Email Address</string>
     <string name="progress_message">Saving Profile Please Wait...</string>
+    <string name="user_info_updated">User info updated successfuly</string>
 
 </resources>

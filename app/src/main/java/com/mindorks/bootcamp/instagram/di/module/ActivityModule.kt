@@ -3,6 +3,7 @@ package com.mindorks.bootcamp.instagram.di.module
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mindorks.bootcamp.instagram.data.repository.DummyRepository
+import com.mindorks.bootcamp.instagram.data.repository.EditProfileRepository
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.dummy.DummyViewModel
@@ -91,10 +92,12 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideEditProfileActivityViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
+        networkHelper: NetworkHelper,
+        editProfileRepository: EditProfileRepository,
+        userRepository: UserRepository
     ): EditProfileActivityViewModel = ViewModelProviders.of(
         activity, ViewModelProviderFactory(EditProfileActivityViewModel::class) {
-            EditProfileActivityViewModel(schedulerProvider, compositeDisposable, networkHelper)
+            EditProfileActivityViewModel(schedulerProvider, compositeDisposable, networkHelper,userRepository,editProfileRepository)
         }).get(EditProfileActivityViewModel::class.java)
 
 

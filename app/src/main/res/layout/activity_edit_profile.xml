@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerEditProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.editProfile.EditProfileActivity">
@@ -23,7 +24,7 @@
 
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivClose"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="start"
@@ -43,6 +44,7 @@
 
 
             <ImageView
+                android:id="@+id/ivSaveEditProfile"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="end"

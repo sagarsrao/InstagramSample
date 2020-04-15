@@ -24,7 +24,6 @@ class SignUpViewModel(
     val signingUp: MutableLiveData<Boolean> = MutableLiveData()
 
     val launchLoginScreen: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
-
     val userNameValidation: LiveData<Resource<Int>> = filterValidation(Validation.Field.USERNAME)
     val emailValidation: LiveData<Resource<Int>> = filterValidation(Validation.Field.EMAIL)
     val passwordValidation: LiveData<Resource<Int>> = filterValidation(Validation.Field.PASSWORD)
