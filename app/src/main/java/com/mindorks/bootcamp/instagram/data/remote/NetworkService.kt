@@ -5,13 +5,16 @@ import com.mindorks.bootcamp.instagram.data.model.editProfile.EditProfileRequest
 import com.mindorks.bootcamp.instagram.data.model.editProfile.ResponseEditMyProfile
 import com.mindorks.bootcamp.instagram.data.model.like.PostLikeResponse
 import com.mindorks.bootcamp.instagram.data.model.unlike.PostUnlikeResponse
+import com.mindorks.bootcamp.instagram.data.model.uploadphoto.ResponseUploadPhoto
 import com.mindorks.bootcamp.instagram.data.remote.request.DummyRequest
 import com.mindorks.bootcamp.instagram.data.remote.request.LoginRequest
 import com.mindorks.bootcamp.instagram.data.remote.request.PostLikeRequest
 import com.mindorks.bootcamp.instagram.data.remote.request.SignUpRequest
 import com.mindorks.bootcamp.instagram.data.remote.response.DummyResponse
 import com.mindorks.bootcamp.instagram.data.remote.response.SignUpAndLoginResponse
+import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import retrofit2.http.*
 import javax.inject.Singleton
 
@@ -82,5 +85,12 @@ interface NetworkService {
         @Header(Networking.HEADER_USER_ID) userId: String
     ): Single<ResponseEditMyProfile>
 
-
+    @Multipart
+    @POST(Endpoints.IMAGE_UPLOAD)
+    fun pushPhotoToServer(
+        @Part file: MultipartBody.Part,
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
+        @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
+        @Header(Networking.HEADER_USER_ID) userId: String
+    ):Observable<ResponseUploadPhoto>
 }

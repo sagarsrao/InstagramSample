@@ -5,11 +5,14 @@ import com.mindorks.bootcamp.instagram.data.model.User
 import com.mindorks.bootcamp.instagram.data.model.allPost.DataItem
 import com.mindorks.bootcamp.instagram.data.model.editProfile.EditProfileRequest
 import com.mindorks.bootcamp.instagram.data.model.editProfile.ResponseEditMyProfile
+import com.mindorks.bootcamp.instagram.data.model.uploadphoto.ResponseUploadPhoto
 
 import com.mindorks.bootcamp.instagram.data.remote.NetworkService
 import com.mindorks.bootcamp.instagram.data.remote.Networking
+import io.reactivex.Observable
 
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 
@@ -30,6 +33,12 @@ class EditProfileRepository @Inject constructor(
             Networking.API_KEY,
             user.accessToken, user.id
         ).map { it }
+    }
+
+
+    fun uploadPhotoAttached(part:MultipartBody.Part,user: User) :Observable<ResponseUploadPhoto>{
+        return  networkService.pushPhotoToServer(part,
+            Networking.API_KEY,user.accessToken,user.id)
     }
 
 

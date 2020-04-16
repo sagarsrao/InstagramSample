@@ -42,5 +42,6 @@
     <string name="email_address_text">Email Address</string>
     <string name="progress_message">Saving Profile Please Wait...</string>
     <string name="user_info_updated">User info updated successfuly</string>
-
+    <string name = "upload_success">Upload Success</string>
+    <string name="upload_failure">Upload Failure</string>
 </resources>
