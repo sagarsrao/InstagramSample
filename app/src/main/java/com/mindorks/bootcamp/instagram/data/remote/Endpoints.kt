@@ -10,5 +10,7 @@ object Endpoints {
     const val POST_UNLIKE = "instagram/post/unlike"
     const val EDIT_MY_PROFILE="me"
     const val IMAGE_UPLOAD="image"
+    const val FETCH_MY_INFO="me"
+    const val LOGOUT = "logout"
 
 }

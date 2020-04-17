@@ -27,7 +27,7 @@
             android:src="@drawable/ic_signup" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvLogOut"
             style="@style/AppTheme.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             app:layout_constraintVertical_bias="0.06999999" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvNoOfPosts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -70,7 +70,7 @@
             tools:text="@string/no_of_posts" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvLoggedInName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -84,7 +84,7 @@
             app:layout_constraintVertical_bias="0.13999999" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tvTagLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -94,9 +94,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/tvLoggedInName"
             app:layout_constraintVertical_bias="0.013" />
 
+
+        <ProgressBar
+            android:id="@+id/pb_fragment_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,7 +3,9 @@ package com.mindorks.bootcamp.instagram.data.remote
 import com.mindorks.bootcamp.instagram.data.model.allPost.PostListResponse
 import com.mindorks.bootcamp.instagram.data.model.editProfile.EditProfileRequest
 import com.mindorks.bootcamp.instagram.data.model.editProfile.ResponseEditMyProfile
+import com.mindorks.bootcamp.instagram.data.model.getProfile.ResGetProfile
 import com.mindorks.bootcamp.instagram.data.model.like.PostLikeResponse
+import com.mindorks.bootcamp.instagram.data.model.logout.ResLogOut
 import com.mindorks.bootcamp.instagram.data.model.unlike.PostUnlikeResponse
 import com.mindorks.bootcamp.instagram.data.model.uploadphoto.ResponseUploadPhoto
 import com.mindorks.bootcamp.instagram.data.remote.request.DummyRequest
@@ -92,5 +94,21 @@ interface NetworkService {
         @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
         @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
         @Header(Networking.HEADER_USER_ID) userId: String
-    ):Observable<ResponseUploadPhoto>
+    ): Observable<ResponseUploadPhoto>
+
+
+    @GET(Endpoints.FETCH_MY_INFO)
+    fun doGetMyPostInfo(
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
+        @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
+        @Header(Networking.HEADER_USER_ID) userId: String
+    ): Observable<ResGetProfile>
+
+
+    @DELETE(Endpoints.LOGOUT)
+    fun exit(
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
+        @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
+        @Header(Networking.HEADER_USER_ID) userId: String
+    ): Single<ResLogOut>
 }

@@ -3,6 +3,7 @@ package com.mindorks.bootcamp.instagram.di.module
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mindorks.bootcamp.instagram.data.repository.DummyRepository
+import com.mindorks.bootcamp.instagram.data.repository.EditProfileRepository
 import com.mindorks.bootcamp.instagram.data.repository.PostRepository
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
@@ -80,11 +81,12 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
         networkHelper: NetworkHelper,
-        userRepository: UserRepository
+        userRepository: UserRepository,
+        editProfileRepository: EditProfileRepository
     ): ProfileViewModel =
         ViewModelProviders.of(fragment,
             ViewModelProviderFactory(ProfileViewModel::class) {
-                ProfileViewModel(schedulerProvider, compositeDisposable, networkHelper,userRepository)
+                ProfileViewModel(schedulerProvider, compositeDisposable, networkHelper,userRepository,editProfileRepository)
             }
         ).get(ProfileViewModel::class.java)
 

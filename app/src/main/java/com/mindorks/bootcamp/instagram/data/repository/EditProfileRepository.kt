@@ -5,6 +5,8 @@ import com.mindorks.bootcamp.instagram.data.model.User
 import com.mindorks.bootcamp.instagram.data.model.allPost.DataItem
 import com.mindorks.bootcamp.instagram.data.model.editProfile.EditProfileRequest
 import com.mindorks.bootcamp.instagram.data.model.editProfile.ResponseEditMyProfile
+import com.mindorks.bootcamp.instagram.data.model.getProfile.ResGetProfile
+import com.mindorks.bootcamp.instagram.data.model.logout.ResLogOut
 import com.mindorks.bootcamp.instagram.data.model.uploadphoto.ResponseUploadPhoto
 
 import com.mindorks.bootcamp.instagram.data.remote.NetworkService
@@ -36,10 +38,20 @@ class EditProfileRepository @Inject constructor(
     }
 
 
-    fun uploadPhotoAttached(part:MultipartBody.Part,user: User) :Observable<ResponseUploadPhoto>{
-        return  networkService.pushPhotoToServer(part,
-            Networking.API_KEY,user.accessToken,user.id)
+    fun uploadPhotoAttached(part: MultipartBody.Part, user: User): Observable<ResponseUploadPhoto> {
+        return networkService.pushPhotoToServer(
+            part,
+            Networking.API_KEY, user.accessToken, user.id
+        )
     }
 
+
+    fun getProfileInfo(user: User): Observable<ResGetProfile> {
+        return networkService.doGetMyPostInfo(Networking.API_KEY, user.accessToken, user.id)
+    }
+
+    fun logout(user: User): Single<ResLogOut> {
+        return networkService.exit(Networking.API_KEY, user.accessToken, user.id)
+    }
 
 }
