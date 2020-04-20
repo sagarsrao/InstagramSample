@@ -2,6 +2,8 @@ package com.mindorks.bootcamp.instagram.ui.photo
 
 import androidx.lifecycle.MutableLiveData
 import com.mindorks.bootcamp.instagram.data.model.User
+import com.mindorks.bootcamp.instagram.data.model.createposts.CreatePostResponse
+import com.mindorks.bootcamp.instagram.data.model.createposts.Data
 import com.mindorks.bootcamp.instagram.data.repository.EditProfileRepository
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.ui.base.BaseViewModel
@@ -25,6 +27,8 @@ class PhotoViewModel(
     private val user: User =
         userRepository.getCurrentUser()!!//This should not be used without login
     val successImageAttached: MutableLiveData<String> = MutableLiveData()
+
+    val createPostSuccess: MutableLiveData<Data> = MutableLiveData()
 
 
     override fun onCreate() {
@@ -59,6 +63,29 @@ class PhotoViewModel(
 
         }
 
+
+    }
+
+
+    fun doCreatePost(imageUrl: String) {
+        if (checkInternetConnectionWithMessage()) {
+            savingData.postValue(true)
+            compositeDisposable.addAll(
+                editProfileRepository.createPostAfterPhotoTaken(imageUrl, user)
+                    .subscribeOn(schedulerProvider.io())
+                    .subscribe({
+                        savingData.postValue(false) // progress bar
+                        createPostSuccess.postValue(it.data)
+
+                    }, {
+                        handleNetworkError(it)
+                        savingData.postValue(false) // progress bar
+
+
+                    })
+            )
+
+        }
 
     }
 

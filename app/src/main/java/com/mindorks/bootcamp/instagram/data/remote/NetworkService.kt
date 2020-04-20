@@ -1,6 +1,8 @@
 package com.mindorks.bootcamp.instagram.data.remote
 
 import com.mindorks.bootcamp.instagram.data.model.allPost.PostListResponse
+import com.mindorks.bootcamp.instagram.data.model.createposts.CreatePostResponse
+import com.mindorks.bootcamp.instagram.data.model.createposts.RequestCreatePost
 import com.mindorks.bootcamp.instagram.data.model.editProfile.EditProfileRequest
 import com.mindorks.bootcamp.instagram.data.model.editProfile.ResponseEditMyProfile
 import com.mindorks.bootcamp.instagram.data.model.getProfile.ResGetProfile
@@ -49,7 +51,10 @@ interface NetworkService {
     ): Single<SignUpAndLoginResponse>
 
     @POST(Endpoints.SIGNUP)
-    fun doSignUp(@Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY, @Body request: SignUpRequest): Single<SignUpAndLoginResponse>
+    fun doSignUp(
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
+        @Body request: SignUpRequest
+    ): Single<SignUpAndLoginResponse>
 
     @GET(Endpoints.ALL_POSTS)
     fun doHomePostListCall(
@@ -111,4 +116,12 @@ interface NetworkService {
         @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
         @Header(Networking.HEADER_USER_ID) userId: String
     ): Single<ResLogOut>
+
+    @POST(Endpoints.POST_CREATION)
+    fun postCreate(
+        @Body body: RequestCreatePost,
+        @Header(Networking.HEADER_API_KEY) apiKey: String = Networking.API_KEY,
+        @Header(Networking.HEADER_ACCESS_TOKEN) accessToken: String,
+        @Header(Networking.HEADER_USER_ID) userId: String
+    ): Single<CreatePostResponse>
 }

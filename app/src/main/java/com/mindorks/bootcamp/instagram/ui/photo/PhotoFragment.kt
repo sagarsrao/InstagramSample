@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -128,6 +129,20 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
             }
 
         })
+
+        viewModel.successImageAttached.observe(this, Observer {
+            /*CreatePost after getting Image URL from the image attached*/
+            viewModel.doCreatePost(it)
+
+        })
+
+        viewModel.createPostSuccess.observe(this, Observer {
+
+            Toast.makeText(activity!!,"Create Post Success",Toast.LENGTH_LONG).show()
+
+        })
+
+
 
     }
 
