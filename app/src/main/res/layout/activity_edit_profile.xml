@@ -168,7 +168,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/tvEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -180,12 +180,16 @@
         android:theme="@style/AppTheme.MyTextHintStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:id="@+id/tvEmailInfo"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:textColor="@color/black"
             tools:text="erwin@mindorks.com" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -68,11 +68,12 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
         networkHelper: NetworkHelper,
-        userRepository: UserRepository
+        userRepository: UserRepository,
+        editProfileRepository: EditProfileRepository
     ): PhotoViewModel =
         ViewModelProviders.of(fragment,
             ViewModelProviderFactory(PhotoViewModel::class) {
-                PhotoViewModel(schedulerProvider, compositeDisposable, networkHelper,userRepository)
+                PhotoViewModel(schedulerProvider, compositeDisposable, networkHelper,userRepository,editProfileRepository)
             }
         ).get(PhotoViewModel::class.java)
 

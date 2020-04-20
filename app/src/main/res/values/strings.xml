@@ -41,7 +41,10 @@
     <string name="private_information">Private Information</string>
     <string name="email_address_text">Email Address</string>
     <string name="progress_message">Saving Profile Please Wait...</string>
+    <string name="progress_upload_message">Uploading image Please Wait...</string>
     <string name="user_info_updated">User info updated successfuly</string>
     <string name = "upload_success">Upload Success</string>
     <string name="upload_failure">Upload Failure</string>
+    <string name="add_image">Add Image</string>
+    <string name="storage_permission_denied_message">you have denied the permission please allow the persmission to take camera and gallery pictures</string>
 </resources>

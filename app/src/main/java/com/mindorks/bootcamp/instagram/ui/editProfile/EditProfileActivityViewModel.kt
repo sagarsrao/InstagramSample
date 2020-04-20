@@ -34,12 +34,14 @@ class EditProfileActivityViewModel(
     val launchProfileFragment: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
     val profilePicUrl: MutableLiveData<String> = MutableLiveData()
 
+    val emailInfoSuccess: MutableLiveData<String> = MutableLiveData()
+
     private val user: User =
         userRepository.getCurrentUser()!!//This should not be used without login
 
 
     override fun onCreate() {
-
+        getEmailInfo()
     }
 
     fun onEditNameChange(name: String) = editUserName.postValue(name)
@@ -102,6 +104,16 @@ class EditProfileActivityViewModel(
         }
 
 
+    }
+
+    fun getEmailInfo() {
+        if (checkInternetConnectionWithMessage()) {
+
+            if (user.email.isNotEmpty()) {
+                emailInfoSuccess.postValue(user.email)
+            }
+
+        }
     }
 
 

@@ -79,6 +79,7 @@ class EditProfileActivity : BaseActivity<EditProfileActivityViewModel>() {
             goBack()
         }
 
+
         ivSaveEditProfile.setOnClickListener {
 
             viewModel.onSave()
@@ -124,6 +125,13 @@ class EditProfileActivity : BaseActivity<EditProfileActivityViewModel>() {
     override fun setupObservers() {
         super.setupObservers()
         /*Observe all the data coming from ViewModel and do update the activity */
+
+        viewModel.emailInfoSuccess.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                tvEmailAddress.requestFocus()
+                tvEmailInfo.setText(it)
+            }
+        })
 
         viewModel.savingData.observe(this, Observer {
 

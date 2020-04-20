@@ -103,6 +103,10 @@ dependencies {
     // Debugging
     debugImplementation "com.amitshekhar.android:debug-db:$debug_db_version"
 
+
+
+    //Dexter
+    implementation 'com.karumi:dexter:6.1.0'
     // Local Unit tests
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
