@@ -7,6 +7,7 @@ import com.mindorks.bootcamp.instagram.data.model.createposts.Data
 import com.mindorks.bootcamp.instagram.data.repository.EditProfileRepository
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.ui.base.BaseViewModel
+import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -30,7 +31,10 @@ class PhotoViewModel(
 
     val createPostSuccess: MutableLiveData<Data> = MutableLiveData()
 
+    val passUserData:MutableLiveData<User> = MutableLiveData()
 
+
+    val launchMainActivity:MutableLiveData<Boolean> = MutableLiveData()
     override fun onCreate() {
 
     }
@@ -75,13 +79,14 @@ class PhotoViewModel(
                     .subscribeOn(schedulerProvider.io())
                     .subscribe({
                         savingData.postValue(false) // progress bar
+                        passUserData.postValue(user)
                         createPostSuccess.postValue(it.data)
+                        launchMainActivity.postValue(true)
 
                     }, {
                         handleNetworkError(it)
                         savingData.postValue(false) // progress bar
-
-
+                        launchMainActivity.postValue(false)
                     })
             )
 

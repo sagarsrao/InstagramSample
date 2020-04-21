@@ -12,6 +12,7 @@ import com.mindorks.bootcamp.instagram.ui.dummies.DummiesViewModel
 import com.mindorks.bootcamp.instagram.ui.home.HomeViewModel
 import com.mindorks.bootcamp.instagram.ui.home.posts.PostsAdapter
 import com.mindorks.bootcamp.instagram.ui.home.posts.PostsItemViewModel
+import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
 import com.mindorks.bootcamp.instagram.ui.photo.PhotoViewModel
 import com.mindorks.bootcamp.instagram.ui.profile.ProfileViewModel
 import com.mindorks.bootcamp.instagram.utils.ViewModelProviderFactory
@@ -94,6 +95,15 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
 
 
 
+    @Provides
+    fun provideMainSharedViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper
+    ): MainSharedViewModel = ViewModelProviders.of(
+        fragment.activity!!, ViewModelProviderFactory(MainSharedViewModel::class) {
+            MainSharedViewModel(schedulerProvider, compositeDisposable, networkHelper)
+        }).get(MainSharedViewModel::class.java)
 
 
 }

@@ -1,6 +1,7 @@
 package com.mindorks.bootcamp.instagram.data.model.createposts
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class CreatePostResponse(
 
@@ -23,7 +24,7 @@ data class Data(
 	val imgUrl: String? = null,
 
 	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
+	val createdAt: Date? = null,
 
 	@field:SerializedName("imgWidth")
 	val imgWidth: Int? = null,

@@ -5,7 +5,6 @@ import android.app.Activity.RESULT_OK
 import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -26,9 +25,14 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.mindorks.bootcamp.instagram.R
+import com.mindorks.bootcamp.instagram.data.model.User
+import com.mindorks.bootcamp.instagram.data.model.allPost.DataItem
 import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
 import com.mindorks.bootcamp.instagram.ui.editProfile.EditProfileActivity
+import com.mindorks.bootcamp.instagram.ui.main.MainActivity
+import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
+import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.common.IImageCompressTaskListener
 import com.mindorks.bootcamp.instagram.utils.common.ImageCompressTask
 import com.mindorks.bootcamp.instagram.utils.common.SelectedFilePath
@@ -37,6 +41,7 @@ import java.io.File
 import java.io.IOException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +63,11 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
 
     var imageCompressTask: ImageCompressTask? = null
     var mCurrentPhotoPath: String? = null
+
+    var userData: User? = null
+
+    @Inject
+    lateinit var mainSharedViewModel: MainSharedViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -136,12 +146,37 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
 
         })
 
+        viewModel.passUserData.observe(this, Observer { userInfo ->
+
+            userData = userInfo
+
+        })
         viewModel.createPostSuccess.observe(this, Observer {
 
-            Toast.makeText(activity!!,"Create Post Success",Toast.LENGTH_LONG).show()
+            Toast.makeText(activity!!, "Create Post Success", Toast.LENGTH_LONG).show()
+
+
+            mainSharedViewModel.onHomeRedirect()
+            mainSharedViewModel.newPost.postValue(
+                (Event(
+                    DataItem(
+                        it.imgUrl, it.createdAt!!, it.imgWidth,
+                        arrayListOf(), it.imgHeight, it.id,
+                        user = DataItem.LikedByItem(
+                            userData?.profilePicUrl,
+                            userData?.name,
+                            userData?.id
+                        )
+                    )
+                ))
+            )
 
         })
 
+        viewModel.launchMainActivity.observe(this, Observer {
+
+            activity?.startActivity(Intent(activity!!,MainActivity::class.java))
+        })
 
 
     }

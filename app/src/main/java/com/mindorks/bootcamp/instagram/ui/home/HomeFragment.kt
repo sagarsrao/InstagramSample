@@ -13,6 +13,7 @@ import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
 import com.mindorks.bootcamp.instagram.ui.home.posts.PostsAdapter
+import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
@@ -36,6 +37,8 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     @Inject
     lateinit var linearLayoutManager: LinearLayoutManager
 
+    @Inject
+    lateinit var mainSharedViewModel: MainSharedViewModel
 
     companion object {
         /**
@@ -103,9 +106,20 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
         })
 
-
         viewModel.loading.observe(this, Observer {
             progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        mainSharedViewModel.newPost.observe(this, Observer {
+            it.getIfNotHandled()?.run {
+                viewModel.onNewPost(this) }
+        })
+
+        viewModel.refreshPosts.observe(this, Observer {
+            it.data?.run {
+                mAdapter.updateList(this)
+                rv_home.scrollToPosition(0)
+            }
         })
 
     }

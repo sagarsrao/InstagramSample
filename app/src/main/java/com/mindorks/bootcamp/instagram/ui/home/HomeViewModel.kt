@@ -26,7 +26,10 @@ class HomeViewModel(schedulerProvider: SchedulerProvider,
     /*Publish processor :- Its a kind of hot observable and can be used multiple times and its suitable for the scenario's like pagination*/
     val loading:MutableLiveData<Boolean> = MutableLiveData() // This is for the spinner
     val posts:MutableLiveData<Resource<List<DataItem>>> = MutableLiveData() // loading the data from the api
+    val refreshPosts: MutableLiveData<Resource<List<DataItem>>> = MutableLiveData()
 
+    var firstId: String? = null
+    var lastId: String? = null
 
     private val user: User = userRepository.getCurrentUser()!!//This should not be used without login
     override fun onCreate() {
@@ -57,11 +60,15 @@ class HomeViewModel(schedulerProvider: SchedulerProvider,
                     {
 
                         allPostList.addAll(it) //get all the results
+
+                        firstId = allPostList.maxBy { post -> post.createdAt.time }?.id
+                        lastId = allPostList.minBy { post -> post.createdAt.time }?.id
                         loading.postValue(false)
 
                         posts.postValue(Resource.success(it))
                     },
                     {
+                        loading.postValue(false)
                         handleNetworkError(it)
                     }
                 )
@@ -69,9 +76,7 @@ class HomeViewModel(schedulerProvider: SchedulerProvider,
     }
 
     private fun loadMorePosts() {
-        val firstPostId = if (allPostList.isNotEmpty()) allPostList[0].id else null //first position of the list
-        val lastPostId = if (allPostList.size > 1) allPostList[allPostList.size - 1].id else null // last position of the list
-        if (checkInternetConnectionWithMessage()) paginator.onNext(Pair(firstPostId, lastPostId))
+        if (checkInternetConnectionWithMessage()) paginator.onNext(Pair(firstId, lastId))
     }
 
 
@@ -79,5 +84,10 @@ class HomeViewModel(schedulerProvider: SchedulerProvider,
     * we will call and hit the api again*/
     fun onLoadMore() {
         if (loading.value !== null && loading.value == false) loadMorePosts()
+    }
+
+    fun onNewPost(post: DataItem) {
+        allPostList.add(0, post)
+        refreshPosts.postValue(Resource.success(mutableListOf<DataItem>().apply { addAll(allPostList) }))
     }
 }
